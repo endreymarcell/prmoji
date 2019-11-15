@@ -1,0 +1,5 @@
+{
+  "name": "prmoji",
+  "description": "Signal Pull Request status via emojis on Slack",
+  "repository": "https://github.com/endreymarcell/prmoji"
+}

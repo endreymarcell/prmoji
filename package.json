@@ -1,0 +1,23 @@
+{
+  "name": "prmoji",
+  "version": "0.2.0",
+  "description": "Signal Pull Request status via emojis on Slack",
+  "private": true,
+  "engines": {
+    "node": "12.x"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "@slack/events-api": "^2.3.0"
+  },
+  "devDependencies": {
+    "prettier": "^1.19.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/endreymarcell/prmoji"
+  }
+}
