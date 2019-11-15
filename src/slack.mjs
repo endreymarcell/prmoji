@@ -1,5 +1,3 @@
 export function handleSlackEvent(req, res) {
-    console.log('Got Slack event')
-    const challenge = req.body.challenge
-    res.json({challenge})
+    console.log('slack_event_received', req.body)
 }
