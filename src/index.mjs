@@ -1,7 +1,9 @@
-const express = require('express')
+import express from 'express'
 
-const {handleGithubEvent} = require('./github')
-const {handleSlackEvent} = require('./slack')
+import {handleGithubEvent} from './github.mjs'
+import {handleSlackEvent} from './slack.mjs'
+
+const PORT = process.env.PORT || 5000
 
 express()
     .use(express.json())

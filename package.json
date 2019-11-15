@@ -3,6 +3,7 @@
     "version": "0.2.0",
     "description": "Signal Pull Request status via emojis on Slack",
     "private": true,
+    "type": "module",
     "engines": {
         "node": "12.x"
     },
