@@ -4,7 +4,12 @@ export class PrmojiApp {
         this.slackClient = slackClient
     }
 
-    handleMessage(message) {}
+    handleMessage(message) {
+        const prUrlsInMessage = getPrUrlsFromString(message.text)
+        for (const url of prUrlsInMessage) {
+            this.storage.store(url, messageId)
+        }
+    }
 
     handlePrEvent(event) {}
 

@@ -23,6 +23,6 @@ export const reactionConditions = {
         eventType === 'pull_request' && requestBody.action === 'closed' && requestBody.pull_request.merged,
 }
 
-export function getPrLinksFromMessage(message) {
-    return []
+export function getPrUrlsFromString(text) {
+    return text.match(/(https:\/\/github\.com\/[\w-_]+\/[\w-_]+\/pull\/\d+)/g) || []
 }
