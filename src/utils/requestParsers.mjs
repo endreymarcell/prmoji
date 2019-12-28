@@ -11,5 +11,5 @@ export function parseGithubRequest(request) {
 }
 
 export function parseSlackRequest(request) {
-    console.info(request)
+    console.info(JSON.stringify(request.body, null, 2))
 }
