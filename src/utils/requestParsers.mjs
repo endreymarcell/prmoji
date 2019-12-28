@@ -11,5 +11,9 @@ export function parseGithubRequest(request) {
 }
 
 export function parseSlackRequest(request) {
-    console.info(JSON.stringify(request.body, null, 2))
+    return {
+        id: request.body.event.client_msd_id,
+        text: request.body.event.text,
+        timestamp: request.body.event.ts,
+    }
 }
