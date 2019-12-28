@@ -10,4 +10,6 @@ export function parseGithubRequest(request) {
     }
 }
 
-export function parseSlackRequest(request) {}
+export function parseSlackRequest(request) {
+    console.info(request)
+}
