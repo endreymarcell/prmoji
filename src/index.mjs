@@ -1,9 +1,13 @@
 import express from 'express'
 
-import {handleGithubEvent} from './github.mjs'
-import {handleSlackEvent} from './slack.mjs'
+import {PrmojiApp} from './app/prmojiApp'
+import {PostgresStorage} from './storage/postgres'
+import {SlackClient} from './slack/client'
+import {parseGithubRequest, parseSlackRequest} from './utils/requestParsers'
 
 const PORT = process.env.PORT || 5000
+
+const app = new PrmojiApp(new PostgresStorage(), new SlackClient(process.env.SLACK_TOKEN))
 
 express()
     .use(express.json())
@@ -14,4 +18,16 @@ express()
 
 function healthcheck(req, res) {
     res.send('OK')
+}
+
+function handleGithubEvent(request, response) {
+    console.log(new Date(), 'github_event_received')
+    response.send('OK')
+    app.handlePrEvent(parseGithubRequest(request))
+}
+
+function handleSlackEvent(request, response) {
+    console.log(new Date(), 'slack_event_received')
+    response.send('OK')
+    app.handleMessage(parseSlackRequest(request))
 }
