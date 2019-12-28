@@ -1,4 +1,4 @@
-import {EMOJI} from './const'
+import {EMOJI} from './const.mjs'
 
 export function getEmoji(githubEvent) {
     const reaction = Object.keys(reactionConditions).find((key) => reactionConditions[key](eventType, requestBody))

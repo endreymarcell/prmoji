@@ -1,9 +1,9 @@
 import express from 'express'
 
-import {PrmojiApp} from './app/prmojiApp'
-import {PostgresStorage} from './storage/postgres'
-import {SlackClient} from './slack/client'
-import {parseGithubRequest, parseSlackRequest} from './utils/requestParsers'
+import {PrmojiApp} from './app/prmojiApp.mjs'
+import {PostgresStorage} from './storage/postgres.mjs'
+import {SlackClient} from './slack/client.mjs'
+import {parseGithubRequest, parseSlackRequest} from './utils/requestParsers.mjs'
 
 const PORT = process.env.PORT || 5000
 
