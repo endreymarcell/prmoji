@@ -21,13 +21,13 @@ function healthcheck(req, res) {
 }
 
 function handleGithubEvent(request, response) {
-    console.log(new Date(), 'github_event_received')
+    console.log('github_event_received')
     response.send('OK')
     app.handlePrEvent(parseGithubRequest(request))
 }
 
 function handleSlackEvent(request, response) {
-    console.log(new Date(), 'slack_event_received')
+    console.log('slack_event_received')
     response.send('OK')
     app.handleMessage(parseSlackRequest(request))
 }
