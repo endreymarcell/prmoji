@@ -1,3 +1,5 @@
+import {getPrUrlsFromString} from '../utils/helpers.mjs'
+
 export class PrmojiApp {
     constructor(storage, slackClient) {
         this.storage = storage
