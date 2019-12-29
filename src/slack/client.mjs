@@ -3,5 +3,5 @@ export class SlackClient {
         this.token = token
     }
 
-    addReaction(reaction, message) {}
+    addEmoji(emoji, message) {}
 }

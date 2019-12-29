@@ -11,7 +11,13 @@ export class PrmojiApp {
         }
     }
 
-    handlePrEvent(event) {}
+    handlePrEvent(event) {
+        const emoji = PrmojiApp.getEmojiForPrEvent(event)
+        const messageIds = this.storage.get(event.prUrl)
+        for (const messageId of messageIds) {
+            this.slackClient.addEmoji(messageId, emoji)
+        }
+    }
 
     cleanupOld(days) {
         this.storage.remove(days)
@@ -22,6 +28,7 @@ export class PrmojiApp {
     }
 
     static getEmojiForPrEvent(prEvent) {
-        return ''
+        // TODO implement
+        return 'white_check_mark'
     }
 }

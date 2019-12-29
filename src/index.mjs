@@ -7,7 +7,9 @@ import {parseGithubRequest, parseSlackRequest} from './utils/requestParsers.mjs'
 
 const PORT = process.env.PORT || 5000
 
-const app = new PrmojiApp(new PostgresStorage(), new SlackClient(process.env.SLACK_TOKEN))
+const storage = new PostgresStorage(process.env.DATABASE_URL)
+const slackClient = new SlackClient(process.env.SLACK_TOKEN)
+const app = new PrmojiApp(storage, slackClient)
 
 express()
     .use(express.json())
