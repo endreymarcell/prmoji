@@ -1,8 +1,8 @@
-import {Client} from 'pg'
+import Postgres from 'pg'
 
 export class PostgresStorage {
     constructor(connectionString) {
-        this.client = new Client({connectionString, ssl: true})
+        this.client = new Postgres.Client({connectionString, ssl: true})
         this.client.connect()
     }
 
