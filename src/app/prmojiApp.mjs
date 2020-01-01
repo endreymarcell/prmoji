@@ -9,7 +9,7 @@ export class PrmojiApp {
     handleMessage(message) {
         const prUrlsInMessage = getPrUrlsFromString(message.text)
         for (const url of prUrlsInMessage) {
-            this.storage.store(url, messageId)
+            this.storage.store(url, message.id)
         }
     }
 
