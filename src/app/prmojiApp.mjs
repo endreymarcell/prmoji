@@ -24,7 +24,7 @@ export class PrmojiApp {
         this.storage.get(event.url).then((messageIds) => {
             if (messageIds) {
                 for (const messageId of messageIds) {
-                    this.slackClient.addEmoji(messageId, emoji)
+                    this.slackClient.addEmoji(emoji, messageId)
                 }
             }
         })
