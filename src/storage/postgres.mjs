@@ -18,16 +18,18 @@ export class PostgresStorage {
         })
     }
 
-    store(prUrl, messageId) {
-        return this.queryPromise(`INSERT INTO pr_messages VALUES (default, default, '${prUrl}', '${messageId}')`)
+    store(prUrl, messageChannel, messageTimestamp) {
+        return this.queryPromise(
+            `INSERT INTO pr_messages VALUES (default, default, '${prUrl}', '${messageChannel}', '${messageTimestamp}')`,
+        )
     }
 
     get(prUrl) {
-        console.log(`SELECT message_id FROM pr_messages WHERE pr_url = '${prUrl}'`)
-        return this.queryPromise(`SELECT message_id FROM pr_messages WHERE pr_url = '${prUrl}'`)
+        console.log(`SELECT message_channel, message_timestamp FROM pr_messages WHERE pr_url = '${prUrl}'`)
+        return this.queryPromise(`SELECT message_channel, message_timestamp FROM pr_messages WHERE pr_url = '${prUrl}'`)
     }
 
     delete(prUrl) {
-        return this.queryPromise(`DELETE FROM message_id WHERE pr_url = '${prUrl}'`)
+        return this.queryPromise(`DELETE FROM message_channel, message_timestamp WHERE pr_url = '${prUrl}'`)
     }
 }

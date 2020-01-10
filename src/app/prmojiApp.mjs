@@ -13,18 +13,19 @@ export class PrmojiApp {
             return
         }
         const prUrlsInMessage = getPrUrlsFromString(message.text)
-        for (const url of prUrlsInMessage) {
-            this.storage.store(url, message.id)
+        for (const prUrl of prUrlsInMessage) {
+            this.storage.store(prUrl, message.channel, message.ts)
         }
     }
 
     handlePrEvent(event) {
         console.log('Received PR event:', event)
         const emoji = EMOJI[event.action]
-        this.storage.get(event.url).then((messageIds) => {
-            if (messageIds) {
-                for (const messageId of messageIds) {
-                    this.slackClient.addEmoji(emoji, messageId)
+        this.storage.get(event.url).then((entries) => {
+            console.log('result is', result)
+            if (entries) {
+                for (const entry of entries) {
+                    // this.slackClient.addEmoji(emoji, messageId)
                 }
             }
         })
