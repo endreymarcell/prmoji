@@ -23,6 +23,7 @@ export class PostgresStorage {
     }
 
     get(prUrl) {
+        console.log(`SELECT message_id FROM pr_messages WHERE pr_url = '${prUrl}'`)
         return this.queryPromise(`SELECT message_id FROM pr_messages WHERE pr_url = '${prUrl}'`)
     }
 
