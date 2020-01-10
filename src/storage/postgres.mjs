@@ -12,7 +12,6 @@ export class PostgresStorage {
                 if (err) {
                     reject(err)
                 } else {
-                    this.client.end()
                     resolve(res.rows)
                 }
             })
