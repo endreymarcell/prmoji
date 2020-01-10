@@ -1,8 +1,8 @@
-import {WebClient as Client} from '@slack/web-api'
+import Slack from '@slack/web-api'
 
 export class SlackClient {
     constructor(token) {
-        this.client = new Client(token)
+        this.client = new Slack.WebClient(token)
     }
 
     addEmoji(name, channel, timestamp) {
