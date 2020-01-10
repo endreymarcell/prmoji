@@ -1,4 +1,4 @@
-const {Client} = require('@slack/web-api')
+import {WebClient as Client} from '@slack/web-api'
 
 export class SlackClient {
     constructor(token) {
