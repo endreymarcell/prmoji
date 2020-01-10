@@ -8,6 +8,9 @@ export class PrmojiApp {
 
     handleMessage(message) {
         console.log('Received message:', message)
+        if (!message.text) {
+            return
+        }
         const prUrlsInMessage = getPrUrlsFromString(message.text)
         for (const url of prUrlsInMessage) {
             this.storage.store(url, message.id)
