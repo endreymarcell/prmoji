@@ -1,3 +1,5 @@
+import {getPrUrl, getPrAction} from './helpers.mjs'
+
 export function parseGithubRequest(request) {
     return {
         url: getPrUrl(request.body),
