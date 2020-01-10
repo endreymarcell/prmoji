@@ -1,6 +1,6 @@
 export function parseGithubRequest(request) {
     return {
-        prUrl: getPrUrl(request.body),
+        url: getPrUrl(request.body),
     }
 }
 
