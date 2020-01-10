@@ -1,11 +1,20 @@
-import {EMOJI} from './const.mjs'
-
-export function getEmoji(githubEvent) {
-    const reaction = Object.keys(reactionConditions).find((key) => reactionConditions[key](eventType, requestBody))
-    return EMOJI[reaction]
+export function getPrUrl(requestBody) {
+    if (requestBody.pull_request != null) {
+        return requestBody.pull_request.html_url
+    } else if (requestBody.issue != null && requestBody.issue.pull_request != null) {
+        return requestBody.issue.pull_request.html_url
+    } else {
+        return null
+    }
 }
 
-export const reactionConditions = {
+export function getPrAction(githubEvent) {
+    const eventType = githubEvent.headers['X-GitHub-Event']
+    const requestBody = githubEvent.body
+    return Object.keys(actionConditions).find((key) => actionConditions[key](eventType, requestBody))
+}
+
+export const actionConditions = {
     commented: (eventType, requestBody) =>
         (eventType === 'issue_comment' && requestBody.action === 'created') ||
         (eventType === 'pull_request_review' &&

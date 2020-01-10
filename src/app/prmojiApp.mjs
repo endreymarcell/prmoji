@@ -1,4 +1,5 @@
 import {getPrUrlsFromString} from '../utils/helpers.mjs'
+import {EMOJI} from '../utils/const'
 
 export class PrmojiApp {
     constructor(storage, slackClient) {
@@ -19,7 +20,7 @@ export class PrmojiApp {
 
     handlePrEvent(event) {
         console.log('Received PR event:', event)
-        const emoji = PrmojiApp.getEmojiForPrEvent(event)
+        const emoji = EMOJI[event.action]
         const messageIds = this.storage.get(event.url)
         for (const messageId of messageIds) {
             this.slackClient.addEmoji(messageId, emoji)
@@ -32,10 +33,5 @@ export class PrmojiApp {
 
     cleanup() {
         this.storage.remove()
-    }
-
-    static getEmojiForPrEvent(prEvent) {
-        // TODO implement
-        return 'white_check_mark'
     }
 }

@@ -3,5 +3,7 @@ export class SlackClient {
         this.token = token
     }
 
-    addEmoji(emoji, message) {}
+    addEmoji(emoji, message) {
+        console.log('Slack client called with', {emoji, message})
+    }
 }
