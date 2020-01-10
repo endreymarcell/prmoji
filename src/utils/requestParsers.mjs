@@ -15,7 +15,6 @@ function getPrUrl(requestBody) {
 }
 
 export function parseSlackRequest(request) {
-    console.log('parsing slack request', request)
     return {
         id: request.body.event.client_msg_id,
         text: request.body.event.text,
