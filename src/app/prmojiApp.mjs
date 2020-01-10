@@ -7,6 +7,7 @@ export class PrmojiApp {
     }
 
     handleMessage(message) {
+        console.log('Received message:', message)
         const prUrlsInMessage = getPrUrlsFromString(message.text)
         for (const url of prUrlsInMessage) {
             this.storage.store(url, message.id)
@@ -14,6 +15,7 @@ export class PrmojiApp {
     }
 
     handlePrEvent(event) {
+        console.log('Received PR event:', event)
         const emoji = PrmojiApp.getEmojiForPrEvent(event)
         const messageIds = this.storage.get(event.prUrl)
         for (const messageId of messageIds) {
