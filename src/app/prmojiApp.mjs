@@ -21,10 +21,13 @@ export class PrmojiApp {
     handlePrEvent(event) {
         console.log('Received PR event:', event)
         const emoji = EMOJI[event.action]
-        const messageIds = this.storage.get(event.url)
-        for (const messageId of messageIds) {
-            this.slackClient.addEmoji(messageId, emoji)
-        }
+        this.storage.get(event.url).then((messageIds) => {
+            if (messageIds) {
+                for (const messageId of messageIds) {
+                    this.slackClient.addEmoji(messageId, emoji)
+                }
+            }
+        })
     }
 
     cleanupOld(days) {
