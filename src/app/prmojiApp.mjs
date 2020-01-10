@@ -1,5 +1,5 @@
 import {getPrUrlsFromString} from '../utils/helpers.mjs'
-import {EMOJI} from '../utils/const'
+import {EMOJI} from '../utils/const.mjs'
 
 export class PrmojiApp {
     constructor(storage, slackClient) {
