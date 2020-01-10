@@ -10,7 +10,7 @@ export function getPrUrl(requestBody) {
 
 export function getPrAction(githubEvent) {
     console.log('getPrAction called with', {headers: githubEvent.headers, body: githubEvent.body})
-    const eventType = githubEvent.headers['X-GitHub-Event']
+    const eventType = githubEvent.headers['x-github-event']
     const requestBody = githubEvent.body
     return Object.keys(actionConditions).find((key) => actionConditions[key](eventType, requestBody))
 }
