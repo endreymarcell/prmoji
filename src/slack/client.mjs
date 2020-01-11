@@ -7,6 +7,6 @@ export class SlackClient {
 
     addEmoji(name, channel, timestamp) {
         console.log('Slack client called with', {emoji: name, channel, timestamp})
-        this.client.reactions.add({name, channel, timestamp})
+        return this.client.reactions.add({name, channel, timestamp})
     }
 }
