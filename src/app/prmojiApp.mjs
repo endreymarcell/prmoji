@@ -29,7 +29,6 @@ export class PrmojiApp {
                 for (const row of result.rows) {
                     this.slackClient.addEmoji(emoji, row.message_channel, row.message_timestamp)
                 }
-                this.storage.delete(event.url)
             }
         })
     }
