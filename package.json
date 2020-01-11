@@ -9,7 +9,7 @@
     },
     "main": "src/index.js",
     "scripts": {
-        "start": "node src/index.js",
+        "start": "node --experimental-modules src/index.mjs",
         "test": "jest"
     },
     "dependencies": {
