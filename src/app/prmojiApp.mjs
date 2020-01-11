@@ -13,6 +13,7 @@ export class PrmojiApp {
             return
         }
         const prUrlsInMessage = getPrUrlsFromString(message.text)
+        console.log('PR URLs in message:', prUrlsInMessage)
         for (const prUrl of prUrlsInMessage) {
             this.storage.store(prUrl, message.channel, message.timestamp)
         }
@@ -21,7 +22,9 @@ export class PrmojiApp {
     handlePrEvent(event) {
         console.log('Received PR event:', event)
         const emoji = EMOJI[event.action]
+        console.log('Selected emoji:', emoji)
         this.storage.get(event.url).then((rows) => {
+            console.log('Got', rows.length, 'matching rows')
             if (rows.length > 0) {
                 for (const rows of rows) {
                     this.slackClient.addEmoji(emoji, row.message_channel, row.message_timestamp)
