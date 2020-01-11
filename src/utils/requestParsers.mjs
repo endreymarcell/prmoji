@@ -12,6 +12,6 @@ export function parseSlackRequest(request) {
         id: request.body.event.client_msg_id,
         text: request.body.event.text,
         channel: request.body.event.channel,
-        timestamp: request.body.event.ts,
+        timestamp: request.body.event.event_ts,
     }
 }
