@@ -6,30 +6,18 @@ export class PostgresStorage {
         this.client.connect()
     }
 
-    queryPromise(query) {
-        return new Promise((resolve, reject) => {
-            this.client.query(query, (err, res) => {
-                if (err) {
-                    reject(err)
-                } else {
-                    resolve(res.rows)
-                }
-            })
-        })
-    }
-
     store(prUrl, messageChannel, messageTimestamp) {
-        return this.queryPromise(
+        return this.client.query(
             `INSERT INTO pr_messages VALUES (default, default, '${prUrl}', '${messageChannel}', '${messageTimestamp}')`,
         )
     }
 
     get(prUrl) {
         console.log(`SELECT message_channel, message_timestamp FROM pr_messages WHERE pr_url = '${prUrl}'`)
-        return this.queryPromise(`SELECT message_channel, message_timestamp FROM pr_messages WHERE pr_url = '${prUrl}'`)
+        return this.client.query(`SELECT message_channel, message_timestamp FROM pr_messages WHERE pr_url = '${prUrl}'`)
     }
 
     delete(prUrl) {
-        return this.queryPromise(`DELETE FROM pr_messages WHERE pr_url = '${prUrl}'`)
+        return this.client.query(`DELETE FROM pr_messages WHERE pr_url = '${prUrl}'`)
     }
 }
