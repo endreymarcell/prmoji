@@ -1,6 +1,9 @@
 import {PrmojiApp} from '../src/app/prmojiApp'
 import {TestStorage} from '../src/storage/testStorage'
 import {TestClient} from '../src/slack/testClient'
+import * as logger from '../src/utils/logger.mjs'
+
+logger.setLevel(logger.Levels.SILENT)
 
 describe('prmojiApp', () => {
     test('receive slack message', async () => {

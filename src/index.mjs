@@ -4,12 +4,16 @@ import {PrmojiApp} from './app/prmojiApp.mjs'
 import {PostgresStorage} from './storage/postgres.mjs'
 import {SlackClient} from './slack/client.mjs'
 import {parseGithubRequest, parseSlackRequest} from './utils/requestParsers.mjs'
+import {getLogLevelFromArgs} from './utils/helpers.mjs'
+import * as logger from './utils/logger.mjs'
 
 const PORT = process.env.PORT || 5000
 
 const storage = new PostgresStorage(process.env.DATABASE_URL)
 const slackClient = new SlackClient(process.env.SLACK_TOKEN)
 const app = new PrmojiApp(storage, slackClient)
+
+logger.setLevel(getLogLevelFromArgs(process.argv))
 
 express()
     .use(express.json())
@@ -23,13 +27,13 @@ function healthcheck(req, res) {
 }
 
 function handleGithubEvent(request, response) {
-    console.log('github_event_received')
+    logger.info('github_event_received')
     response.send('OK')
     app.handlePrEvent(parseGithubRequest(request))
 }
 
 function handleSlackEvent(request, response) {
-    console.log('slack_event_received')
+    logger.info('slack_event_received')
     response.send('OK')
     app.handleMessage(parseSlackRequest(request))
 }

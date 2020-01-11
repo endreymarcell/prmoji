@@ -1,5 +1,6 @@
 import {getPrUrlsFromString} from '../utils/helpers.mjs'
 import {EMOJI} from '../utils/const.mjs'
+import * as logger from '../utils/logger.mjs'
 
 export class PrmojiApp {
     constructor(storage, slackClient) {
@@ -8,25 +9,25 @@ export class PrmojiApp {
     }
 
     async handleMessage(message) {
-        console.log('Received message:', message)
+        logger.info('Received message:', message)
         if (!message.text) {
             return
         }
         const prUrlsInMessage = getPrUrlsFromString(message.text)
-        console.log('PR URLs in message:', prUrlsInMessage)
+        logger.debug('PR URLs in message:', prUrlsInMessage)
         for (const prUrl of prUrlsInMessage) {
             await this.storage.store(prUrl, message.channel, message.timestamp)
         }
     }
 
     async handlePrEvent(event) {
-        console.log('Received PR event:', event)
+        logger.info('Received PR event:', event)
 
         const emoji = EMOJI[event.action]
-        console.log('Selected emoji:', emoji)
+        logger.debug('Selected emoji:', emoji)
 
         const result = await this.storage.get(event.url)
-        console.log('Got', result.rows.length, 'matching rows')
+        logger.debug('Got', result.rows.length, 'matching rows')
 
         if (result.rows.length > 0) {
             for (const row of result.rows) {

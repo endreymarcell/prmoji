@@ -1,4 +1,5 @@
 import Slack from '@slack/web-api'
+import * as logger from '../utils/logger.mjs'
 
 export class SlackClient {
     constructor(token) {
@@ -6,7 +7,7 @@ export class SlackClient {
     }
 
     addEmoji(name, channel, timestamp) {
-        console.log('Slack client called with', {emoji: name, channel, timestamp})
+        logger.info('Slack client called with', {emoji: name, channel, timestamp})
         return this.client.reactions.add({name, channel, timestamp})
     }
 }

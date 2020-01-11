@@ -1,3 +1,6 @@
+import * as logger from './logger.mjs'
+import {Levels} from './logger.mjs'
+
 export function getPrUrl(requestBody) {
     if (requestBody.pull_request != null) {
         return requestBody.pull_request.html_url
@@ -9,7 +12,7 @@ export function getPrUrl(requestBody) {
 }
 
 export function getPrAction(githubEvent) {
-    console.log('getPrAction called with', {headers: githubEvent.headers, body: githubEvent.body})
+    logger.silly('getPrAction called with', {headers: githubEvent.headers, body: githubEvent.body})
     const eventType = githubEvent.headers['x-github-event']
     const requestBody = githubEvent.body
     return Object.keys(actionConditions).find((key) => actionConditions[key](eventType, requestBody))
@@ -35,4 +38,26 @@ export const actionConditions = {
 
 export function getPrUrlsFromString(text) {
     return text.match(/(https:\/\/github\.com\/[\w-_]+\/[\w-_]+\/pull\/\d+)/g) || []
+}
+
+export function getLogLevelFromArgs(argv) {
+    let levelString = 'info'
+    for (const arg of argv) {
+        if (arg.startsWith('--loglevel=')) {
+            levelString = arg.substr(11)
+            break
+        }
+    }
+    switch (levelString) {
+        case 'silent':
+            return Levels.SILENT
+        case 'error':
+            return Levels.ERROR
+        case 'debug':
+            return Levels.DEBUG
+        case 'silly':
+            return Levels.SILLY
+        default:
+            return Levels.INFO
+    }
 }
