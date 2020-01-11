@@ -34,10 +34,10 @@ export class PrmojiApp {
     }
 
     cleanupOld(days) {
-        this.storage.remove(days)
+        // this.storage.remove(days)
     }
 
     cleanup() {
-        this.storage.remove()
+        // this.storage.remove()
     }
 }
