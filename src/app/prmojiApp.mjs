@@ -21,11 +21,10 @@ export class PrmojiApp {
     handlePrEvent(event) {
         console.log('Received PR event:', event)
         const emoji = EMOJI[event.action]
-        this.storage.get(event.url).then((entries) => {
-            console.log('result is', result)
-            if (entries) {
-                for (const entry of entries) {
-                    // this.slackClient.addEmoji(emoji, messageId)
+        this.storage.get(event.url).then((rows) => {
+            if (rows.length > 0) {
+                for (const rows of rows) {
+                    this.slackClient.addEmoji(emoji, row.message_channel, row.message_timestamp)
                 }
             }
         })
