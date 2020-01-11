@@ -1,7 +1,9 @@
 export class TestClient {
-    constructor(token) {
-        this.token = token
+    constructor(mockAddReactionFn) {
+        this.mockAddReactionFn = mockAddReactionFn
     }
 
-    addReaction(reaction, message) {}
+    addReaction(name, channel, timestamp) {
+        return this.mockAddReactionFn(name, channel, timestamp)
+    }
 }
