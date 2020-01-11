@@ -14,7 +14,7 @@ export class PrmojiApp {
         }
         const prUrlsInMessage = getPrUrlsFromString(message.text)
         for (const prUrl of prUrlsInMessage) {
-            this.storage.store(prUrl, message.channel, message.ts)
+            this.storage.store(prUrl, message.channel, message.timestamp)
         }
     }
 
