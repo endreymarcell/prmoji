@@ -30,6 +30,6 @@ export class PostgresStorage {
     }
 
     delete(prUrl) {
-        return this.queryPromise(`DELETE FROM message_channel, message_timestamp WHERE pr_url = '${prUrl}'`)
+        return this.queryPromise(`DELETE FROM pr_messages WHERE pr_url = '${prUrl}'`)
     }
 }
