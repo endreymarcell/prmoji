@@ -23,10 +23,10 @@ export class PrmojiApp {
         console.log('Received PR event:', event)
         const emoji = EMOJI[event.action]
         console.log('Selected emoji:', emoji)
-        this.storage.get(event.url).then((rows) => {
-            console.log('Got', rows.length, 'matching rows')
-            if (rows.length > 0) {
-                for (const rows of rows) {
+        this.storage.get(event.url).then((result) => {
+            console.log('Got', result.rows.length, 'matching rows')
+            if (result.rows.length > 0) {
+                for (const row of result.rows) {
                     this.slackClient.addEmoji(emoji, row.message_channel, row.message_timestamp)
                 }
                 this.storage.delete(event.url)
