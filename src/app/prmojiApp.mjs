@@ -1,5 +1,5 @@
 import {getPrUrlsFromString} from '../utils/helpers.mjs'
-import {EMOJI} from '../utils/const.mjs'
+import {EmojiMap} from '../utils/const.mjs'
 import * as logger from '../utils/logger.mjs'
 
 export class PrmojiApp {
@@ -23,7 +23,7 @@ export class PrmojiApp {
     async handlePrEvent(event) {
         logger.info('Received PR event:', event)
 
-        const emoji = EMOJI[event.action]
+        const emoji = EmojiMap[event.action]
         logger.debug('Selected emoji:', emoji)
 
         const result = await this.storage.get(event.url)
