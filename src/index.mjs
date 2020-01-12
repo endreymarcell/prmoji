@@ -18,12 +18,18 @@ logger.setLevel(getLogLevelFromArgs(process.argv))
 express()
     .use(express.json())
     .get('/', healthcheck)
+    .post('/challenge', handleSlackChallenge)
     .post('/event/github', handleGithubEvent)
     .post('/event/slack', handleSlackEvent)
     .listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 function healthcheck(req, res) {
     res.send('OK')
+}
+
+function handleSlackChallenge(request, response) {
+    logger.info('slack_challenge_received')
+    response.send(request.body.challenge)
 }
 
 function handleGithubEvent(request, response) {
