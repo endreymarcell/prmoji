@@ -34,6 +34,10 @@ function handleGithubEvent(request, response) {
 
 function handleSlackEvent(request, response) {
     logger.info('slack_event_received')
-    response.send('OK')
-    app.handleMessage(parseSlackRequest(request))
+    if (request.body.challenge) {
+        response.send(request.body.challenge)
+    } else {
+        response.send('OK')
+        app.handleMessage(parseSlackRequest(request))
+    }
 }
