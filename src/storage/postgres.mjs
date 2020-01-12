@@ -7,20 +7,29 @@ export class PostgresStorage {
         this.client.connect()
     }
 
+    execute(query) {
+        logger.silly(query)
+        return this.client.query(query)
+    }
     store(prUrl, messageChannel, messageTimestamp) {
         logger.debug('Storage: storing', {prUrl, messageChannel, messageTimestamp})
-        return this.client.query(
+        return this.execute(
             `INSERT INTO pr_messages VALUES (default, default, '${prUrl}', '${messageChannel}', '${messageTimestamp}')`,
         )
     }
 
     get(prUrl) {
         logger.debug('Storage: getting', prUrl)
-        return this.client.query(`SELECT message_channel, message_timestamp FROM pr_messages WHERE pr_url = '${prUrl}'`)
+        return this.execute(`SELECT message_channel, message_timestamp FROM pr_messages WHERE pr_url = '${prUrl}'`)
     }
 
     delete(prUrl) {
         logger.debug('Storage: deleting', prUrl)
-        return this.client.query(`DELETE FROM pr_messages WHERE pr_url = '${prUrl}'`)
+        return this.execute(`DELETE FROM pr_messages WHERE pr_url = '${prUrl}'`)
+    }
+
+    deleteAll() {
+        logger.debug('Storage: deleting all entries')
+        return this.execute('DELETE FROM pr_messages')
     }
 }

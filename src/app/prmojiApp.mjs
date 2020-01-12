@@ -9,19 +9,26 @@ export class PrmojiApp {
     }
 
     async handleMessage(message) {
-        logger.info('Received message:', message)
-        if (!message.text) {
+        logger.info('Received Slack message:', message)
+        if (!message.text || !message.channel || !message.timestamp) {
+            logger.debug('Missing field(s), discarding message.')
             return
         }
+
         const prUrlsInMessage = getPrUrlsFromString(message.text)
         logger.debug('PR URLs in message:', prUrlsInMessage)
+
         for (const prUrl of prUrlsInMessage) {
+            logger.debug('Storing', prUrl)
             await this.storage.store(prUrl, message.channel, message.timestamp)
         }
     }
 
     async handlePrEvent(event) {
         logger.info('Received PR event:', event)
+        if (!event.url || !event.action) {
+            logger.debug('Missing field(s), discarding PR event.')
+        }
 
         const emoji = EmojiMap[event.action]
         logger.debug('Selected emoji:', emoji)
@@ -31,10 +38,12 @@ export class PrmojiApp {
 
         if (result.rows.length > 0) {
             for (const row of result.rows) {
+                logger.debug('Adding emoji', emoji)
                 await this.slackClient.addEmoji(emoji, row.message_channel, row.message_timestamp)
             }
 
             if (event.action === Actions.MERGED || event.action === Actions.CLOSED) {
+                logger.debug('Deleting', event.url)
                 await this.storage.delete(event.url)
             }
         }
