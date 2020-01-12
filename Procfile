@@ -1,1 +1,1 @@
-web: node --experimental-modules src/index.mjs
+web: npm run start
