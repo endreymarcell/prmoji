@@ -3,6 +3,7 @@ export const Actions = {
     APPROVED: 'approved',
     CHANGES_REQUESTED: 'changes_requested',
     MERGED: 'merged',
+    CLOSED: 'closed',
 }
 
 export const EmojiMap = {
@@ -10,4 +11,5 @@ export const EmojiMap = {
     [Actions.APPROVED]: 'white_check_mark',
     [Actions.CHANGES_REQUESTED]: 'no_entry',
     [Actions.MERGED]: 'merged',
+    [Actions.CLOSED]: 'wastebasket',
 }

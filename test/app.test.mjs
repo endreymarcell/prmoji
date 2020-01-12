@@ -94,5 +94,15 @@ describe('End-to-end', () => {
             })
             expect((await app.storage.get(MOCK_PR_URL)).rows.length).toBe(0)
         })
+
+        test('Closing without merging removes entry from the storage', async () => {
+            const mockAddReaction = jest.fn(() => Promise.resolve())
+            const app = new PrmojiApp(new TestStorage(MOCK_STORAGE_CONTENTS), new TestClient(mockAddReaction))
+            await app.handlePrEvent({
+                url: MOCK_PR_URL,
+                action: 'closed',
+            })
+            expect((await app.storage.get(MOCK_PR_URL)).rows.length).toBe(0)
+        })
     })
 })

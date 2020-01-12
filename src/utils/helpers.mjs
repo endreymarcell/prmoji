@@ -34,6 +34,8 @@ export const actionConditions = {
         requestBody.review.state === 'changes_requested',
     merged: (eventType, requestBody) =>
         eventType === 'pull_request' && requestBody.action === 'closed' && requestBody.pull_request.merged,
+    closed: (eventType, requestBody) =>
+        eventType === 'pull_request' && requestBody.action === 'closed' && !requestBody.pull_request.merged,
 }
 
 export function getPrUrlsFromString(text) {

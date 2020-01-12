@@ -34,7 +34,7 @@ export class PrmojiApp {
                 await this.slackClient.addEmoji(emoji, row.message_channel, row.message_timestamp)
             }
 
-            if (event.action === Actions.MERGED) {
+            if (event.action === Actions.MERGED || event.action === Actions.CLOSED) {
                 await this.storage.delete(event.url)
             }
         }
