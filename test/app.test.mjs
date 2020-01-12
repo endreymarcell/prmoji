@@ -5,14 +5,18 @@ import * as logger from '../src/utils/logger.mjs'
 
 logger.setLevel(logger.Levels.SILENT)
 
-describe('prmojiApp', () => {
+const MOCK_PR_URL = 'https://github.com/test-user/test-repo/pull/1'
+const MOCK_CHANNEL = 'mock-channel'
+const MOCK_TIMESTAMP = 'mock-timestamp'
+
+describe('Smoke', () => {
     test('receive slack message', async () => {
         const mockAddReaction = jest.fn(() => Promise.resolve())
         const app = new PrmojiApp(new TestStorage(), new TestClient(mockAddReaction))
         await app.handleMessage({
-            text: 'https://github.com/test-user/test-repo/pull/1',
-            channel: 'mock-channel',
-            timestamp: 'mock-timestamp',
+            text: MOCK_PR_URL,
+            channel: MOCK_CHANNEL,
+            timestamp: MOCK_TIMESTAMP,
         })
     })
 
@@ -20,23 +24,25 @@ describe('prmojiApp', () => {
         const mockAddReaction = jest.fn(() => Promise.resolve())
         const app = new PrmojiApp(new TestStorage(), new TestClient(mockAddReaction))
         await app.handlePrEvent({
-            url: 'https://github.com/test-user/test-repo/pull/1',
+            url: MOCK_PR_URL,
             action: 'approved',
         })
     })
+})
 
-    test('end to end', async () => {
+describe('End-to-end', () => {
+    test('Storing a PR, then approving it', async () => {
         const mockAddReaction = jest.fn(() => Promise.resolve())
         const app = new PrmojiApp(new TestStorage(), new TestClient(mockAddReaction))
         await app.handleMessage({
-            text: 'https://github.com/test-user/test-repo/pull/1',
-            channel: 'mock-channel',
-            timestamp: 'mock-timestamp',
+            text: MOCK_PR_URL,
+            channel: MOCK_CHANNEL,
+            timestamp: MOCK_TIMESTAMP,
         })
         await app.handlePrEvent({
-            url: 'https://github.com/test-user/test-repo/pull/1',
+            url: MOCK_PR_URL,
             action: 'approved',
         })
-        expect(mockAddReaction).toBeCalledWith('white_check_mark', 'mock-channel', 'mock-timestamp')
+        expect(mockAddReaction).toBeCalledWith('white_check_mark', MOCK_CHANNEL, MOCK_TIMESTAMP)
     })
 })
