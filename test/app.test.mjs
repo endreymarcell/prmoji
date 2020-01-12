@@ -24,4 +24,19 @@ describe('prmojiApp', () => {
             action: 'approved',
         })
     })
+
+    test('end to end', async () => {
+        const mockAddReaction = jest.fn(() => Promise.resolve())
+        const app = new PrmojiApp(new TestStorage(), new TestClient(mockAddReaction))
+        await app.handleMessage({
+            text: 'https://github.com/test-user/test-repo/pull/1',
+            channel: 'mock-channel',
+            timestamp: 'mock-timestamp',
+        })
+        await app.handlePrEvent({
+            url: 'https://github.com/test-user/test-repo/pull/1',
+            action: 'approved',
+        })
+        expect(mockAddReaction).toBeCalledWith('white_check_mark', 'mock-channel', 'mock-timestamp')
+    })
 })
