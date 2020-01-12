@@ -9,7 +9,7 @@
     },
     "main": "src/index.js",
     "scripts": {
-        "start": "node --experimental-modules src/index.mjs",
+        "start": "node --experimental-modules src/index.mjs -- --loglevel=debug",
         "test": "jest"
     },
     "dependencies": {
