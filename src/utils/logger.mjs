@@ -17,7 +17,7 @@ export function log(level, ...messageParts) {
         if (level === Levels.ERROR) {
             console.error(...messageParts)
         } else {
-            console.info(...messageParts)
+            console.log(...messageParts)
         }
     }
 }
