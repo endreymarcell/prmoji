@@ -3,7 +3,7 @@ export class TestClient {
         this.mockAddReactionFn = mockAddReactionFn
     }
 
-    addReaction(name, channel, timestamp) {
+    addEmoji(name, channel, timestamp) {
         return this.mockAddReactionFn(name, channel, timestamp)
     }
 }
