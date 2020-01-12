@@ -1,4 +1,4 @@
-const Actions = {
+export const Actions = {
     COMMENTED: 'commented',
     APPROVED: 'approved',
     CHANGES_REQUESTED: 'changes_requested',
