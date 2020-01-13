@@ -38,6 +38,8 @@ You'll have to expose the following env vars:
 
 ### Slack
 
+Note: this only has to be done once.
+
 -   Go to https://api.slack.com/apps/
 -   Click Your apps
 -   Click Create New App
@@ -53,10 +55,12 @@ You'll have to expose the following env vars:
 -   Fill out the URL with the same value as above
 -   Under Subscribe to bot events, select `message.channels` and `message.groups`
 -   Click Install App
-
-TODO finish
+-   Click Add app to your workspace
+-   Copy the Bot access token and expose it for the service as an env var called `SLACK_TOKEN`
 
 ### GitHub
+
+Note: this has to be done for every repository you wish to watch.
 
 -   Go to https://github.com/YOUR-USER/YOUR-REPO/settings/hooks
 -   Click Add webhook
