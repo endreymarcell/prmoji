@@ -31,13 +31,13 @@ export class PrmojiApp {
             return
         }
 
-        const emoji = EmojiMap[event.action]
-        logger.debug('Selected emoji:', emoji)
-
         const result = await this.storage.get(event.url)
         logger.debug('Got', result.rows.length, 'matching rows')
 
         if (result.rows.length > 0) {
+            const emoji = EmojiMap[event.action]
+            logger.debug('Selected emoji:', emoji)
+
             for (const row of result.rows) {
                 logger.debug('Adding emoji', emoji)
                 await this.slackClient.addEmoji(emoji, row.message_channel, row.message_timestamp)
