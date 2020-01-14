@@ -28,6 +28,7 @@ export class PrmojiApp {
         logger.info('Received PR event:', event)
         if (!event.url || !event.action) {
             logger.debug('Missing field(s), discarding PR event.')
+            return
         }
 
         const emoji = EmojiMap[event.action]
