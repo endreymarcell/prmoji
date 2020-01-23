@@ -1,4 +1,4 @@
-import {getPrUrlsFromString} from '../utils/helpers.mjs'
+import {getPrUrlsFromString, shouldAddEmoji} from '../utils/helpers.mjs'
 import {EmojiMap, Actions} from '../utils/const.mjs'
 import * as logger from '../utils/logger.mjs'
 
@@ -39,8 +39,12 @@ export class PrmojiApp {
             logger.debug('Selected emoji:', emoji)
 
             for (const row of result.rows) {
-                logger.debug('Adding emoji', emoji)
-                await this.slackClient.addEmoji(emoji, row.message_channel, row.message_timestamp)
+                if (shouldAddEmoji(event)) {
+                    logger.debug('Adding emoji', emoji)
+                    await this.slackClient.addEmoji(emoji, row.message_channel, row.message_timestamp)
+                } else {
+                    logger.debug('Should not add emoji for this event.')
+                }
             }
 
             if (event.action === Actions.MERGED || event.action === Actions.CLOSED) {

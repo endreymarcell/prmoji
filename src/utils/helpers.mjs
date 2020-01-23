@@ -1,5 +1,6 @@
 import * as logger from './logger.mjs'
 import {Levels} from './logger.mjs'
+import {Actions} from './const.mjs'
 
 export function getPrUrl(requestBody) {
     if (requestBody.pull_request != null) {
@@ -16,6 +17,10 @@ export function getPrAction(githubEvent) {
     const eventType = githubEvent.headers['x-github-event']
     const requestBody = githubEvent.body
     return Object.keys(actionConditions).find((key) => actionConditions[key](eventType, requestBody))
+}
+
+export function getPrCommenter(requestBody) {
+    return requestBody.comment && requestBody.comment.user && requestBody.comment.user.login
 }
 
 export const actionConditions = {
@@ -62,4 +67,9 @@ export function getLogLevelFromArgs(argv) {
         default:
             return Levels.INFO
     }
+}
+
+export function shouldAddEmoji(event) {
+    const isCommentFromJenkins = event.action === Actions.COMMENTED && event.commenter === 'prezi-code-change-bot'
+    return !isCommentFromJenkins
 }

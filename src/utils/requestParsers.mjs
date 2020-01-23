@@ -1,9 +1,10 @@
-import {getPrUrl, getPrAction} from './helpers.mjs'
+import {getPrUrl, getPrAction, getPrCommenter} from './helpers.mjs'
 
 export function parseGithubRequest(request) {
     return {
         url: getPrUrl(request.body),
         action: getPrAction(request),
+        commenter: getPrCommenter(request.body),
     }
 }
 
