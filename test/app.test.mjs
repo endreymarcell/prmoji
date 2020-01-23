@@ -54,6 +54,22 @@ describe('End-to-end', () => {
         expect(mockAddReaction).toBeCalledWith('white_check_mark', MOCK_CHANNEL, MOCK_TIMESTAMP)
     })
 
+    test('Comments from Jenkins are ignored', async () => {
+        const mockAddReaction = jest.fn(() => Promise.resolve())
+        const app = new PrmojiApp(new TestStorage(), new TestClient(mockAddReaction))
+        await app.handleMessage({
+            text: MOCK_PR_URL,
+            channel: MOCK_CHANNEL,
+            timestamp: MOCK_TIMESTAMP,
+        })
+        await app.handlePrEvent({
+            url: MOCK_PR_URL,
+            action: 'commented',
+            commenter: 'prezi-code-change-bot',
+        })
+        expect(mockAddReaction).not.toBeCalled()
+    })
+
     describe('Actions affecting the storage', () => {
         test('Commenting has no effect', async () => {
             const mockAddReaction = jest.fn(() => Promise.resolve())
