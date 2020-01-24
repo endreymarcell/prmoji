@@ -28,6 +28,15 @@ export class PostgresStorage {
         return this.execute(`DELETE FROM pr_messages WHERE pr_url = '${prUrl}'`)
     }
 
+    deleteBeforeDays(numDays) {
+        logger.debug('Storage: deleting rows older than', numDays, days)
+        const now = new Date()
+        const deleteBefore = getDateStringForDeletion(now, numDays)
+        deleteBefore.setDate(deleteBefore.getDate() - numDays)
+        const deleteBeforeString = deleteBefore.toISOString().substr(0, 10)
+        return this.execute()
+    }
+
     deleteAll() {
         logger.debug('Storage: deleting all entries')
         return this.execute('DELETE FROM pr_messages')
