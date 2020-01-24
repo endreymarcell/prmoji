@@ -23,7 +23,7 @@ export class PostgresStorage {
         return this.execute(`SELECT message_channel, message_timestamp FROM pr_messages WHERE pr_url = '${prUrl}'`)
     }
 
-    delete(prUrl) {
+    deleteByPrUrl(prUrl) {
         logger.debug('Storage: deleting', prUrl)
         return this.execute(`DELETE FROM pr_messages WHERE pr_url = '${prUrl}'`)
     }

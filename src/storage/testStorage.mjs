@@ -25,7 +25,7 @@ export class TestStorage {
         return Promise.resolve({rows: this.items.filter((item) => item.pr_url === prUrl)})
     }
 
-    delete(prUrl) {
+    deleteByPrUrl(prUrl) {
         logger.debug('testStorage deleting', prUrl)
         this.items = this.items.filter((item) => item.pr_url !== prUrl)
         return Promise.resolve()

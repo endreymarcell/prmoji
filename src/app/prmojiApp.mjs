@@ -49,7 +49,7 @@ export class PrmojiApp {
 
             if (event.action === Actions.MERGED || event.action === Actions.CLOSED) {
                 logger.debug('Deleting', event.url)
-                await this.storage.delete(event.url)
+                await this.storage.deleteByPrUrl(event.url)
             }
         }
     }
