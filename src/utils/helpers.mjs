@@ -73,3 +73,8 @@ export function shouldAddEmoji(event) {
     const isCommentFromJenkins = event.action === Actions.COMMENTED && event.commenter === 'prezi-code-change-bot'
     return !isCommentFromJenkins
 }
+
+export function getDateStringForDeletion(date, numDays) {
+    date.setDate(date.getDate() - numDays)
+    return date.toISOString().substr(0, 10)
+}
