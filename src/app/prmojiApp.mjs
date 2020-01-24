@@ -59,6 +59,6 @@ export class PrmojiApp {
     }
 
     cleanup() {
-        // this.storage.remove()
+        this.storage.deleteAll()
     }
 }
