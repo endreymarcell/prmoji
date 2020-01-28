@@ -1,6 +1,6 @@
 import * as logger from './logger.mjs'
 import {Levels} from './logger.mjs'
-import {Actions} from './const.mjs'
+import {Actions, IGNORED_COMMENTERS} from './const.mjs'
 
 export function getPrUrl(requestBody) {
     if (requestBody.pull_request != null) {
@@ -70,7 +70,7 @@ export function getLogLevelFromArgs(argv) {
 }
 
 export function shouldAddEmoji(event) {
-    const isCommentFromJenkins = event.action === Actions.COMMENTED && event.commenter === 'prezi-code-change-bot'
+    const isCommentFromJenkins = event.action === Actions.COMMENTED && IGNORED_COMMENTERS.includes(event.commenter)
     return !isCommentFromJenkins
 }
 

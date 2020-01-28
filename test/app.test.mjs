@@ -2,6 +2,7 @@ import {PrmojiApp} from '../src/app/prmojiApp'
 import {TestStorage} from '../src/storage/testStorage'
 import {TestClient} from '../src/slack/testClient'
 import * as logger from '../src/utils/logger.mjs'
+import {IGNORED_COMMENTERS} from '../src/utils/const.mjs'
 
 logger.setLevel(logger.Levels.SILENT)
 
@@ -65,7 +66,7 @@ describe('End-to-end', () => {
         await app.handlePrEvent({
             url: MOCK_PR_URL,
             action: 'commented',
-            commenter: 'prezi-code-change-bot',
+            commenter: IGNORED_COMMENTERS[0],
         })
         expect(mockAddReaction).not.toBeCalled()
     })
