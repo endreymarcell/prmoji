@@ -1,4 +1,5 @@
 import express from 'express'
+import Rollbar from 'rollbar'
 
 import {PrmojiApp} from './app/prmojiApp.mjs'
 import {PostgresStorage} from './storage/postgres.mjs'
@@ -12,6 +13,12 @@ const PORT = process.env.PORT || 5000
 const storage = new PostgresStorage(process.env.DATABASE_URL)
 const slackClient = new SlackClient(process.env.SLACK_TOKEN)
 const app = new PrmojiApp(storage, slackClient)
+
+const rollbar = new Rollbar({
+    accessToken: process.env.ROLLBAR_TOKEN,
+    captureUncaught: true,
+    captureUnhandledRejections: true,
+})
 
 logger.setLevel(getLogLevelFromArgs(process.argv))
 
