@@ -1,6 +1,6 @@
 import Postgres from 'pg'
 import * as logger from '../utils/logger.mjs'
-import {getDateStringForDeletion} from '../utils/helpers'
+import {getDateStringForDeletion} from '../utils/helpers.mjs'
 
 export class PostgresStorage {
     constructor(connectionString) {

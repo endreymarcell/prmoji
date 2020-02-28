@@ -1,4 +1,4 @@
-import {getRollbar} from './rollbar'
+import {getRollbar} from './rollbar.mjs'
 
 let _level
 

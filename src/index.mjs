@@ -1,5 +1,4 @@
 import express from 'express'
-import Rollbar from 'rollbar'
 
 import {PrmojiApp} from './app/prmojiApp.mjs'
 import {PostgresStorage} from './storage/postgres.mjs'
