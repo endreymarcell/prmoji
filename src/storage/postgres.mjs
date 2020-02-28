@@ -32,10 +32,8 @@ export class PostgresStorage {
     deleteBeforeDays(numDays) {
         logger.debug('Storage: deleting rows older than', numDays, 'days')
         const now = new Date()
-        const deleteBefore = getDateStringForDeletion(now, numDays)
-        deleteBefore.setDate(deleteBefore.getDate() - numDays)
-        const deleteBeforeString = deleteBefore.toISOString().substr(0, 10)
-        return this.execute()
+        const dateString = getDateStringForDeletion(now, numDays)
+        return this.execute(`DELETE FROM pr_messages WHERE inserted_at < '${dateString}'::date`)
     }
 
     deleteAll() {
