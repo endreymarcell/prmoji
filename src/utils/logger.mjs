@@ -1,3 +1,5 @@
+import {getRollbar} from './rollbar'
+
 let _level
 
 export const Levels = {
@@ -13,12 +15,28 @@ export function setLevel(level) {
 }
 
 export function log(level, ...messageParts) {
+    const message = messageParts.join(' ')
     if (_level && level <= _level) {
-        if (level === Levels.ERROR) {
-            console.error(...messageParts)
-        } else {
-            console.log(...messageParts)
-        }
+        consoleLog(level, message)
+    }
+    if (_level !== Levels.SILENT && level <= Levels.INFO) {
+        rollbarLog(level, message)
+    }
+}
+
+function consoleLog(level, message) {
+    if (level === Levels.ERROR) {
+        console.error(message)
+    } else {
+        console.log(message)
+    }
+}
+
+function rollbarLog(level, message) {
+    if (level === Levels.ERROR) {
+        getRollbar().warning(message)
+    } else {
+        getRollbar().info(message)
     }
 }
 

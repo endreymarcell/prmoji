@@ -14,12 +14,6 @@ const storage = new PostgresStorage(process.env.DATABASE_URL)
 const slackClient = new SlackClient(process.env.SLACK_TOKEN)
 const app = new PrmojiApp(storage, slackClient)
 
-const rollbar = new Rollbar({
-    accessToken: process.env.ROLLBAR_TOKEN,
-    captureUncaught: true,
-    captureUnhandledRejections: true,
-})
-
 logger.setLevel(getLogLevelFromArgs(process.argv))
 
 express()
