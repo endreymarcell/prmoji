@@ -29,7 +29,7 @@ export class PostgresStorage {
     }
 
     deleteBeforeDays(numDays) {
-        logger.debug('Storage: deleting rows older than', numDays, days)
+        logger.debug('Storage: deleting rows older than', numDays, 'days')
         const now = new Date()
         const deleteBefore = getDateStringForDeletion(now, numDays)
         deleteBefore.setDate(deleteBefore.getDate() - numDays)
