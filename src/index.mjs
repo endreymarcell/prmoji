@@ -19,8 +19,6 @@ const rollbar = new Rollbar({
     captureUncaught: true,
     captureUnhandledRejections: true,
 })
-// TODO remove this after verifying that it works
-rollbar.log('If you see this, Rollbar was successfully setup in prmoji')
 
 logger.setLevel(getLogLevelFromArgs(process.argv))
 
