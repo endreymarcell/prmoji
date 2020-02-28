@@ -27,6 +27,7 @@ express()
     .get('/', healthcheck)
     .post('/event/github', handleGithubEvent)
     .post('/event/slack', handleSlackEvent)
+    .post('/cleanup/', handleCleanupRequest)
     .listen(PORT, () => console.log(`Listening on ${PORT}`))
 
 function healthcheck(req, res) {
@@ -47,4 +48,14 @@ function handleSlackEvent(request, response) {
         response.send('OK')
         app.handleMessage(parseSlackRequest(request))
     }
+}
+
+function handleCleanupRequest(request, response) {
+    logger.info('cleanup_request_received')
+    app.cleanupOld()
+        .then(() => response.send('OK'))
+        .catch(() => {
+            response.statusCode = 500
+            response.send()
+        })
 }
