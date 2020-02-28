@@ -55,10 +55,12 @@ export class PrmojiApp {
     }
 
     cleanupOld(days = 7) {
+        logger.info('Cleaning up entries as old as', days, 'days or older')
         return this.storage.deleteBeforeDays(days)
     }
 
     cleanup() {
+        logger.info('Cleaning up all entries')
         this.storage.deleteAll()
     }
 }
