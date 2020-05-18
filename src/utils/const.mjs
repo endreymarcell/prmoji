@@ -14,4 +14,9 @@ export const EmojiMap = {
     [Actions.CLOSED]: 'wastebasket',
 }
 
-export const IGNORED_COMMENTERS = ['prezi-code-change-bot', 'jenkinsprezi2']
+export const IGNORED_COMMENTERS = [
+    'prezi-code-change-management',
+    'prezi-code-change-bot',
+    'jenkinsprezi2',
+    'prezipublisher',
+]
