@@ -36,7 +36,7 @@ export function getPrNumber(requestBody) {
 }
 
 export function getPrAuthor(requestBody) {
-    return requestBody.user.login
+    return requestBody.issue.user.login
 }
 
 export const actionConditions = {
