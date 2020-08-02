@@ -11,7 +11,7 @@ export class PrmojiApp {
     }
 
     async handleMessage(message) {
-        logger.info('Received Slack message:', message)
+        logger.info('Received Slack message', message.text ? message.text.substr(0, 8) : '(no message text)')
         if (!message.text || !message.channel || !message.timestamp) {
             logger.debug('Missing field(s), discarding message.')
             return
@@ -27,7 +27,7 @@ export class PrmojiApp {
     }
 
     async handlePrEvent(event) {
-        logger.info('Received PR event:', event)
+        logger.info('Received PR event:', event.number || '(no PR number)')
         if (!event.url || !event.action) {
             logger.debug('Missing field(s), discarding PR event.')
             return
