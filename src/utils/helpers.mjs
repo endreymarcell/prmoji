@@ -32,11 +32,13 @@ export function getPrRepoFullName(requestBody) {
 }
 
 export function getPrNumber(requestBody) {
-    return requestBody.pull_request && requestBody.pull_request.number
+    return (
+        (requestBody.pull_request && requestBody.pull_request.number) || (requestBody.issue && requestBody.issue.number)
+    )
 }
 
 export function getPrAuthor(requestBody) {
-    return requestBody.issue.user.login
+    return requestBody.issue && requestBody.issue.user && requestBody.issue.user.login
 }
 
 export const actionConditions = {
