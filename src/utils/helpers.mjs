@@ -40,8 +40,7 @@ export function getPrNumber(requestBody) {
 export function getPrAuthor(requestBody) {
     return (
         (requestBody.issue && requestBody.issue.user && requestBody.issue.user.login) ||
-        requestBody.pull_request ||
-        (requestBody.pull_request.user && requestBody.pull_request.user.login)
+        (requestBody.pull_request && requestBody.pull_request.user && requestBody.pull_request.user.login)
     )
 }
 
