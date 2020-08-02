@@ -32,7 +32,7 @@ export function getPrRepoFullName(requestBody) {
 }
 
 export function getPrNumber(requestBody) {
-    return requestBody.issue.number
+    return requestBody.pull_request && requestBody.pull_request.number
 }
 
 export function getPrAuthor(requestBody) {
