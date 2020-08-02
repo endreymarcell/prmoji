@@ -9,8 +9,6 @@ import {
 } from './helpers.mjs'
 
 export function parseGithubRequest(request) {
-    console.log(request.body.user)
-    console.log(JSON.stringify(request.body, null, 2))
     return {
         url: getPrUrl(request.body),
         action: getPrAction(request),
