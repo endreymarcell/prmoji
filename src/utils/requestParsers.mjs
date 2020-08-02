@@ -1,4 +1,12 @@
-import {getPrUrl, getPrAction, getPrCommenter} from './helpers.mjs'
+import {
+    getPrUrl,
+    getPrAction,
+    getPrCommenter,
+    getPrRepoName,
+    getPrRepoFullName,
+    getPrNumber,
+    getPrAuthor,
+} from './helpers.mjs'
 
 export function parseGithubRequest(request) {
     console.log(request.body.user)
@@ -7,10 +15,10 @@ export function parseGithubRequest(request) {
         url: getPrUrl(request.body),
         action: getPrAction(request),
         commenter: getPrCommenter(request.body),
-        name: request.body.repository.name,
-        fullName: request.body.repository.full_name,
-        number: request.body.number,
-        author: request.body.user.login,
+        name: getPrRepoName(request.body),
+        fullName: getPrRepoFullName(request.body),
+        number: getPrNumber(request.body),
+        author: getPrAuthor(request.body),
     }
 }
 

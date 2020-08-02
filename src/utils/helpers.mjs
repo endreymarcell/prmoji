@@ -23,6 +23,22 @@ export function getPrCommenter(requestBody) {
     return requestBody.comment && requestBody.comment.user && requestBody.comment.user.login
 }
 
+export function getPrRepoName(requestBody) {
+    return requestBody.repository && requestBody.repository.name
+}
+
+export function getPrRepoFullName(requestBody) {
+    return requestBody.repository && requestBody.repository.full_name
+}
+
+export function getPrNumber(requestBody) {
+    return requestBody.number
+}
+
+export function getPrAuthor(requestBody) {
+    return requestBody.user.login
+}
+
 export const actionConditions = {
     commented: (eventType, requestBody) =>
         (eventType === 'issue_comment' && requestBody.action === 'created') ||
