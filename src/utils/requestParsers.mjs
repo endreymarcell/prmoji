@@ -8,7 +8,7 @@ export function parseGithubRequest(request) {
         commenter: getPrCommenter(request.body),
         name: request.body.repository.name,
         fullName: request.body.repository.full_name,
-        number: request.body.pull_request.number,
+        number: request.body.number,
         author: request.body.user.login,
     }
 }
