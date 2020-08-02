@@ -74,7 +74,21 @@ export function shouldAddEmoji(event) {
     return !isCommentFromJenkins
 }
 
+export function shouldNotify(event) {
+    const watchedRepositories = ['prezi/frontend-packages', 'endreymarcell/prmoji-testing']
+    return event.action === Actions.MERGED && watchedRepositories.includes(event.fullName)
+}
+
 export function getDateStringForDeletion(date, numDays) {
     date.setDate(date.getDate() - numDays)
     return date.toISOString().substr(0, 10)
+}
+
+export function getMessage(event) {
+    const repoName = event.name || '(missing repo name)'
+    const prUrl = event.url || '(missing PR URL)'
+    const prNumber = event.number || '(missing PR number)'
+    const authorName = event.author || '(missing PR author)'
+
+    return `<${prUrl}|${repoName} #${prNumber}> (by ${authorName}) has just been merged.`
 }

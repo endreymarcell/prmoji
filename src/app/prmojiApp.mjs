@@ -1,11 +1,13 @@
 import {getPrUrlsFromString, shouldAddEmoji} from '../utils/helpers.mjs'
 import {EmojiMap, Actions} from '../utils/const.mjs'
 import * as logger from '../utils/logger.mjs'
+import {shouldNotify, getMessage} from '../utils/helpers.mjs'
 
 export class PrmojiApp {
-    constructor(storage, slackClient) {
+    constructor(storage, slackClient, airNotificationsChannelId = null) {
         this.storage = storage
         this.slackClient = slackClient
+        this.airNotificationsChannelId = airNotificationsChannelId
     }
 
     async handleMessage(message) {
@@ -29,6 +31,13 @@ export class PrmojiApp {
         if (!event.url || !event.action) {
             logger.debug('Missing field(s), discarding PR event.')
             return
+        }
+
+        if (shouldNotify(event)) {
+            logger.debug('Event meets notification criteria, sending message.')
+            await this.slackClient.sendMessage(getMessage(event), this.airNotificationsChannelId)
+        } else {
+            logger.debug('Event does not meet notification criteria, not sending message')
         }
 
         const result = await this.storage.get(event.url)

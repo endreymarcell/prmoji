@@ -5,6 +5,10 @@ export function parseGithubRequest(request) {
         url: getPrUrl(request.body),
         action: getPrAction(request),
         commenter: getPrCommenter(request.body),
+        name: request.body.repository.name,
+        fullName: request.body.repository.full_name,
+        number: request.body.pull_request.number,
+        author: request.body.user.login,
     }
 }
 

@@ -3,6 +3,7 @@ import {TestStorage} from '../src/storage/testStorage'
 import {TestClient} from '../src/slack/testClient'
 import * as logger from '../src/utils/logger.mjs'
 import {IGNORED_COMMENTERS} from '../src/utils/const.mjs'
+import {getMessage} from '../src/utils/helpers.mjs'
 
 logger.setLevel(logger.Levels.SILENT)
 
@@ -71,6 +72,26 @@ describe('End-to-end', () => {
         expect(mockAddReaction).not.toBeCalled()
     })
 
+    describe('Sending notifications', () => {
+        test('Calling the Slack client with the right message', async () => {
+            const mockAddReaction = jest.fn(() => Promise.resolve())
+            const mockSendMessage = jest.fn(() => Promise.resolve())
+            const app = new PrmojiApp(new TestStorage(), new TestClient(mockAddReaction, mockSendMessage))
+            const event = {
+                url: MOCK_PR_URL,
+                action: 'merged',
+                name: 'prmoji-testing',
+                fullName: 'endreymarcell/prmoji-testing',
+                number: '1234',
+                author: 'marca',
+            }
+            await app.handlePrEvent(event)
+            // getMessage() is tested in isolation
+            const expectedMessage = getMessage(event)
+            expect(mockSendMessage).toBeCalledWith(expectedMessage, null)
+        })
+    })
+
     describe('Actions affecting the storage', () => {
         test('Commenting has no effect', async () => {
             const mockAddReaction = jest.fn(() => Promise.resolve())
@@ -108,6 +129,7 @@ describe('End-to-end', () => {
             await app.handlePrEvent({
                 url: MOCK_PR_URL,
                 action: 'merged',
+                repository: {full_name: 'test-user/test-repo'},
             })
             expect((await app.storage.get(MOCK_PR_URL)).rows.length).toBe(0)
         })

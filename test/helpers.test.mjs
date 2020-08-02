@@ -1,4 +1,4 @@
-import {getDateStringForDeletion} from '../src/utils/helpers'
+import {getDateStringForDeletion, getMessage} from '../src/utils/helpers.mjs'
 
 describe('getDateStringForDeletion', () => {
     test('no change', () => {
@@ -17,5 +17,19 @@ describe('getDateStringForDeletion', () => {
     test('change year', () => {
         const date = new Date(Date.UTC(2020, 0, 1))
         expect(getDateStringForDeletion(date, 1)).toBe('2019-12-31')
+    })
+})
+
+describe('getMessage', () => {
+    test('parsing event details', () => {
+        const event = {
+            name: 'repo',
+            url: 'https://github.com/org/repo/pull/1234',
+            number: '1234',
+            author: 'username',
+        }
+        expect(getMessage(event)).toBe(
+            '<https://github.com/org/repo/pull/1234|repo #1234> (by username) has just been merged.',
+        )
     })
 })

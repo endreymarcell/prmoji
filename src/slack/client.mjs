@@ -10,4 +10,9 @@ export class SlackClient {
         logger.info('Slack client called with', {emoji: name, channel, timestamp})
         return this.client.reactions.add({name, channel, timestamp}).catch((error) => logger.error(error))
     }
+
+    sendMessage(message, channel) {
+        logger.info('Slack client called with:', {channel, message: '<hidden>'})
+        return this.client.chat.postMessage({channel, text: message})
+    }
 }
