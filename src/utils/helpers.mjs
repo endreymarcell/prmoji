@@ -133,7 +133,7 @@ export function getMessage(event) {
     const prUrl = event.url || '(missing PR URL)'
     const prNumber = event.number || '(missing PR number)'
     const prTitle = event.title || '(missing PR title)'
-    const prTitleMaxLength = 50
+    const prTitleMaxLength = 100
     const truncatedTitle =
         event.title.length > prTitleMaxLength ? event.title.substr(0, prTitleMaxLength) + '...' : event.title
     const authorName = event.author || '(missing PR author)'
