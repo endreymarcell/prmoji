@@ -36,6 +36,7 @@ describe('Smoke', () => {
         await app.handlePrEvent({
             url: MOCK_PR_URL,
             action: 'approved',
+            labels: [],
         })
     })
 })
@@ -52,6 +53,7 @@ describe('End-to-end', () => {
         await app.handlePrEvent({
             url: MOCK_PR_URL,
             action: 'approved',
+            labels: [],
         })
         expect(mockAddReaction).toBeCalledWith('white_check_mark', MOCK_CHANNEL, MOCK_TIMESTAMP)
     })
@@ -68,6 +70,7 @@ describe('End-to-end', () => {
             url: MOCK_PR_URL,
             action: 'commented',
             commenter: IGNORED_COMMENTERS[0],
+            labels: [],
         })
         expect(mockAddReaction).not.toBeCalled()
     })
@@ -101,6 +104,7 @@ describe('End-to-end', () => {
             await app.handlePrEvent({
                 url: MOCK_PR_URL,
                 action: 'commented',
+                labels: [],
             })
             expect((await app.storage.get(MOCK_PR_URL)).rows.length).toBe(1)
         })
@@ -111,6 +115,7 @@ describe('End-to-end', () => {
             await app.handlePrEvent({
                 url: MOCK_PR_URL,
                 action: 'changes_requested',
+                labels: [],
             })
             expect((await app.storage.get(MOCK_PR_URL)).rows.length).toBe(1)
         })
@@ -121,6 +126,7 @@ describe('End-to-end', () => {
             await app.handlePrEvent({
                 url: MOCK_PR_URL,
                 action: 'approved',
+                labels: [],
             })
             expect((await app.storage.get(MOCK_PR_URL)).rows.length).toBe(1)
         })
@@ -132,6 +138,7 @@ describe('End-to-end', () => {
                 url: MOCK_PR_URL,
                 action: 'merged',
                 repository: {full_name: 'test-user/test-repo'},
+                labels: [],
             })
             expect((await app.storage.get(MOCK_PR_URL)).rows.length).toBe(0)
         })
@@ -142,6 +149,7 @@ describe('End-to-end', () => {
             await app.handlePrEvent({
                 url: MOCK_PR_URL,
                 action: 'closed',
+                labels: [],
             })
             expect((await app.storage.get(MOCK_PR_URL)).rows.length).toBe(0)
         })
