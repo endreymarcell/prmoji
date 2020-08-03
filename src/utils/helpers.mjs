@@ -44,6 +44,15 @@ export function getPrAuthor(requestBody) {
     )
 }
 
+export function getPrLabels(requestBody) {
+    return (requestBody.labels || []).map((label) => label.name)
+}
+
+export function getPrTitle(requestBody) {
+    return (
+        (requestBody.issue && requestBody.issue.title) || (requestBody.pull_request && requestBody.pull_request.title)
+    )
+}
 export const actionConditions = {
     commented: (eventType, requestBody) =>
         (eventType === 'issue_comment' && requestBody.action === 'created') ||
@@ -97,7 +106,12 @@ export function shouldAddEmoji(event) {
 
 export function shouldNotify(event) {
     const watchedRepositories = ['prezi/frontend-packages', 'endreymarcell/prmoji-testing']
-    return event.action === Actions.MERGED && watchedRepositories.includes(event.fullName)
+    const watchedLabels = ['air']
+    return (
+        event.action === Actions.MERGED &&
+        watchedRepositories.includes(event.fullName) &&
+        event.labels.some((label) => watchedLabels.includes(label))
+    )
 }
 
 export function getDateStringForDeletion(date, numDays) {
@@ -109,7 +123,11 @@ export function getMessage(event) {
     const repoName = event.name || '(missing repo name)'
     const prUrl = event.url || '(missing PR URL)'
     const prNumber = event.number || '(missing PR number)'
+    const prTitle = event.title || '(missing PR title)'
+    const prTitleMaxLength = 50
+    const truncatedTitle =
+        event.title.length > prTitleMaxLength ? event.title.substr(0, prTitleMaxLength) + '...' : event.title
     const authorName = event.author || '(missing PR author)'
 
-    return `<${prUrl}|${repoName} #${prNumber}> (by ${authorName}) has just been merged.`
+    return `Merged: <${prUrl}|${repoName} #${prNumber} ${truncatedTitle}> (by ${authorName})`
 }

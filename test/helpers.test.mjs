@@ -21,15 +21,28 @@ describe('getDateStringForDeletion', () => {
 })
 
 describe('getMessage', () => {
-    test('parsing event details', () => {
+    test('Short title', () => {
         const event = {
             name: 'repo',
             url: 'https://github.com/org/repo/pull/1234',
             number: '1234',
             author: 'username',
+            title: 'Short PR title',
         }
         expect(getMessage(event)).toBe(
-            '<https://github.com/org/repo/pull/1234|repo #1234> (by username) has just been merged.',
+            'Merged: <https://github.com/org/repo/pull/1234|repo #1234 Short PR title> (by username)',
+        )
+    })
+    test('Long title', () => {
+        const event = {
+            name: 'repo',
+            url: 'https://github.com/org/repo/pull/1234',
+            number: '1234',
+            author: 'username',
+            title: 'Surprisingly long pull request title that is really just too long',
+        }
+        expect(getMessage(event)).toBe(
+            'Merged: <https://github.com/org/repo/pull/1234|repo #1234 Surprisingly long pull request title that is reall...> (by username)',
         )
     })
 })

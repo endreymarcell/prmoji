@@ -6,6 +6,8 @@ import {
     getPrRepoFullName,
     getPrNumber,
     getPrAuthor,
+    getPrLabels,
+    getPrTitle,
 } from './helpers.mjs'
 
 export function parseGithubRequest(request) {
@@ -17,6 +19,8 @@ export function parseGithubRequest(request) {
         fullName: getPrRepoFullName(request.body),
         number: getPrNumber(request.body),
         author: getPrAuthor(request.body),
+        labels: getPrLabels(request.body),
+        title: getPrTitle(request.body),
     }
 }
 

@@ -84,6 +84,8 @@ describe('End-to-end', () => {
                 fullName: 'endreymarcell/prmoji-testing',
                 number: '1234',
                 author: 'marca',
+                labels: ['air'],
+                title: 'Fix all the things',
             }
             await app.handlePrEvent(event)
             // getMessage() is tested in isolation
