@@ -5,6 +5,7 @@ import {shouldNotify, getMessage} from '../utils/helpers.mjs'
 
 export class PrmojiApp {
     constructor(storage, slackClient, airNotificationsChannelId = null) {
+        logger.debug('Initializing PrmojiApp instance')
         this.storage = storage
         this.slackClient = slackClient
         this.airNotificationsChannelId = airNotificationsChannelId

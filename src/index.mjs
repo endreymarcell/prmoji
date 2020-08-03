@@ -10,11 +10,13 @@ import * as logger from './utils/logger.mjs'
 const PORT = process.env.PORT || 5000
 const {AIR_NOTIFICATIONS_CHANNEL_ID} = process.env
 
+const logLevel = getLogLevelFromArgs(process.argv)
+logger.setLevel(logLevel)
+logger.info('Logging level set to', logLevel)
+
 const storage = new PostgresStorage(process.env.DATABASE_URL)
 const slackClient = new SlackClient(process.env.SLACK_TOKEN)
 const app = new PrmojiApp(storage, slackClient, AIR_NOTIFICATIONS_CHANNEL_ID)
-
-logger.setLevel(getLogLevelFromArgs(process.argv))
 
 express()
     .use(express.json())
