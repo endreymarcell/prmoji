@@ -138,5 +138,15 @@ export function getMessage(event) {
         event.title.length > prTitleMaxLength ? event.title.substr(0, prTitleMaxLength) + '...' : event.title
     const authorName = event.author || '(missing PR author)'
 
-    return `Merged: <${prUrl}|${repoName} #${prNumber} ${truncatedTitle}> (by ${authorName})`
+    const jiraRegex = /([A-Z]+-[0-9]+)/gm
+    const jiraKeys = prTitle.match(jiraRegex)
+    const jiraReferences = jiraKeys ? `, Jira: ${jiraKeys.map((jiraKey) => getJiraReference(jiraKey)).join(', ')}` : ''
+
+    return `Merged: <${prUrl}|${repoName} #${prNumber} ${truncatedTitle}> (by ${authorName})${jiraReferences}`
+}
+
+function getJiraReference(key) {
+    const jiraDomain = process.env.JIRA_DOMAIN || 'jira.mydomain.com'
+    const jiraUrlBase = `https://${jiraDomain}/browse/`
+    return `<${jiraUrlBase}${key}|${key}>`
 }

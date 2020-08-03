@@ -45,4 +45,16 @@ describe('getMessage', () => {
             'Merged: <https://github.com/org/repo/pull/1234|repo #1234 Surprisingly long pull request title that is reall...> (by username)',
         )
     })
+    test('Interpolating Jira cards', () => {
+        const event = {
+            name: 'repo',
+            url: 'https://github.com/org/repo/pull/1234',
+            number: '1234',
+            author: 'username',
+            title: '[JIRA-1234] and another FOO-100',
+        }
+        expect(getMessage(event)).toBe(
+            'Merged: <https://github.com/org/repo/pull/1234|repo #1234 [JIRA-1234] and another FOO-100> (by username), Jira: <https://jira.mydomain.com/browse/JIRA-1234|JIRA-1234>, <https://jira.mydomain.com/browse/FOO-100|FOO-100>',
+        )
+    })
 })
