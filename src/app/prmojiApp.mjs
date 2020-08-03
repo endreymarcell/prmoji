@@ -34,10 +34,10 @@ export class PrmojiApp {
         }
 
         if (shouldNotify(event)) {
-            logger.debug('Event meets notification criteria, sending message.')
+            logger.info('Event meets notification criteria, sending message.')
             await this.slackClient.sendMessage(getMessage(event), this.airNotificationsChannelId)
         } else {
-            logger.debug('Event does not meet notification criteria, not sending message')
+            logger.info('Event does not meet notification criteria, not sending message')
         }
 
         const result = await this.storage.get(event.url)
@@ -49,10 +49,10 @@ export class PrmojiApp {
 
             for (const row of result.rows) {
                 if (shouldAddEmoji(event)) {
-                    logger.debug('Adding emoji', emoji)
+                    logger.info('Adding emoji', emoji)
                     await this.slackClient.addEmoji(emoji, row.message_channel, row.message_timestamp)
                 } else {
-                    logger.debug('Should not add emoji for this event.')
+                    logger.info('Should not add emoji for this event.')
                 }
             }
 

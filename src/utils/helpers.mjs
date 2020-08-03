@@ -105,8 +105,7 @@ export function shouldAddEmoji(event) {
 }
 
 export function shouldNotify(event) {
-    logger.debug('shouldNotify examining event:')
-    logger.debug(event)
+    logger.debug('shouldNotify examining event:', JSON.stringify(event, null, 2))
 
     const watchedRepositories = ['prezi/frontend-packages', 'endreymarcell/prmoji-testing']
     const watchedLabels = ['air']
