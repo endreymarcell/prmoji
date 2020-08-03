@@ -105,13 +105,20 @@ export function shouldAddEmoji(event) {
 }
 
 export function shouldNotify(event) {
+    logger.debug('shouldNotify examining event:')
+    logger.debug(event)
+
     const watchedRepositories = ['prezi/frontend-packages', 'endreymarcell/prmoji-testing']
     const watchedLabels = ['air']
-    return (
-        event.action === Actions.MERGED &&
-        watchedRepositories.includes(event.fullName) &&
-        event.labels.some((label) => watchedLabels.includes(label))
-    )
+
+    const isMerged = event.action === Actions.MERGED
+    const isWatchedRepository = watchedRepositories.includes(event.fullName)
+    const hasWatchedLabel = event.labels.some((label) => watchedLabels.includes(label))
+
+    const shouldNotify = isMerged && isWatchedRepository && hasWatchedLabel
+    logger.debug('Notification criteria:', {isMerged, isWatchedRepository, hasWatchedLabel, shouldNotify})
+
+    return shouldNotify
 }
 
 export function getDateStringForDeletion(date, numDays) {
