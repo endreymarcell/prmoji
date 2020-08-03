@@ -45,7 +45,7 @@ export function getPrAuthor(requestBody) {
 }
 
 export function getPrLabels(requestBody) {
-    return (requestBody.labels || []).map((label) => label.name)
+    return ((requestBody.pull_request && requestBody.pull_request.labels) || []).map((label) => label.name)
 }
 
 export function getPrTitle(requestBody) {
