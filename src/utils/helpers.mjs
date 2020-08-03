@@ -115,7 +115,10 @@ export function shouldNotify(event) {
     const hasWatchedLabel = event.labels.some((label) => watchedLabels.includes(label))
 
     const shouldNotify = isMerged && isWatchedRepository && hasWatchedLabel
-    logger.debug('Notification criteria:', {isMerged, isWatchedRepository, hasWatchedLabel, shouldNotify})
+    logger.debug(
+        'Notification criteria:',
+        JSON.stringify({isMerged, isWatchedRepository, hasWatchedLabel, shouldNotify}, null, 2),
+    )
 
     return shouldNotify
 }
