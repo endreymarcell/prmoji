@@ -11,7 +11,6 @@ import {
 } from './helpers.mjs'
 
 export function parseGithubRequest(request) {
-    console.log(JSON.stringify(request.body, null, 2))
     return {
         url: getPrUrl(request.body),
         action: getPrAction(request),
