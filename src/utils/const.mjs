@@ -19,4 +19,5 @@ export const IGNORED_COMMENTERS = [
     'prezi-code-change-bot',
     'jenkinsprezi2',
     'prezipublisher',
+    'sonarcloud',
 ]
