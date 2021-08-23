@@ -13,31 +13,31 @@ export class PostgresStorage {
         return this.client.query(query).catch((error) => logger.error(error))
     }
     store(prUrl, messageChannel, messageTimestamp) {
-        logger.debug('Storage: storing', {prUrl, messageChannel, messageTimestamp})
+        logger.debug('[storage] storing', {prUrl, messageChannel, messageTimestamp})
         return this.execute(
             `INSERT INTO pr_messages VALUES (default, default, '${prUrl}', '${messageChannel}', '${messageTimestamp}')`,
         )
     }
 
     get(prUrl) {
-        logger.debug('Storage: getting', prUrl)
+        logger.debug('[storage] getting', prUrl)
         return this.execute(`SELECT message_channel, message_timestamp FROM pr_messages WHERE pr_url = '${prUrl}'`)
     }
 
     deleteByPrUrl(prUrl) {
-        logger.debug('Storage: deleting', prUrl)
+        logger.debug('[storage] deleting', prUrl)
         return this.execute(`DELETE FROM pr_messages WHERE pr_url = '${prUrl}'`)
     }
 
     deleteBeforeDays(numDays) {
-        logger.debug('Storage: deleting rows older than', numDays, 'days')
+        logger.debug('[storage] deleting rows older than', numDays, 'days')
         const now = new Date()
         const dateString = getDateStringForDeletion(now, numDays)
         return this.execute(`DELETE FROM pr_messages WHERE inserted_at < '${dateString}'::date`)
     }
 
     deleteAll() {
-        logger.debug('Storage: deleting all entries')
+        logger.debug('[storage] deleting all entries')
         return this.execute('DELETE FROM pr_messages')
     }
 }

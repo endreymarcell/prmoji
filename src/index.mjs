@@ -12,7 +12,7 @@ const {AIR_NOTIFICATIONS_CHANNEL_ID} = process.env
 
 const logLevel = getLogLevelFromArgs(process.argv)
 logger.setLevel(logLevel)
-logger.info('Logging level set to', logLevel)
+logger.info('[startup] Logging level set to', logLevel)
 
 const storage = new PostgresStorage(process.env.DATABASE_URL)
 const slackClient = new SlackClient(process.env.SLACK_TOKEN)
@@ -31,13 +31,13 @@ function healthcheck(req, res) {
 }
 
 function handleGithubEvent(request, response) {
-    logger.info('github_event_received')
+    logger.info('[API] received GitHub event')
     response.send('OK')
     app.handlePrEvent(parseGithubRequest(request))
 }
 
 function handleSlackEvent(request, response) {
-    logger.info('slack_event_received')
+    logger.info('[API] received Slack event')
     if (request.body.challenge) {
         response.send(request.body.challenge)
     } else {
@@ -47,7 +47,7 @@ function handleSlackEvent(request, response) {
 }
 
 function handleCleanupRequest(request, response) {
-    logger.info('cleanup_request_received')
+    logger.info('[API] received cleanup request')
     app.cleanupOld()
         .then(() => response.send('OK'))
         .catch(() => {
