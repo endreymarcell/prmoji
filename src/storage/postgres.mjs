@@ -9,7 +9,7 @@ export class PostgresStorage {
     }
 
     execute(query) {
-        logger.silly(query)
+        logger.debug(query)
         return this.client.query(query).catch((error) => logger.error(error))
     }
     store(prUrl, messageChannel, messageTimestamp) {
