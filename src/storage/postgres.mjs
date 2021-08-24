@@ -10,7 +10,10 @@ export class PostgresStorage {
 
     execute(query) {
         logger.debug(query)
-        return this.client.query(query).catch((error) => logger.error(error))
+        return this.client.query(query).catch((error) => {
+            console.log('[storage] Just in case my logger is borken: error, error!', error)
+            logger.error(error)
+        })
     }
     store(prUrl, messageChannel, messageTimestamp) {
         logger.debug('[storage] storing', {prUrl, messageChannel, messageTimestamp})
