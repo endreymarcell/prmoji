@@ -18,10 +18,9 @@ export class PostgresStorage {
         logger.debug('[storage] executing query:', query)
         return this.client.query(query, (error, rows) => {
             if (error) {
-                console.log('[storage] Just in case my logger is borken: error, error!', error)
                 logger.error('[storage]', error)
             } else {
-                logger.debug('[storage] DB returned:', rows)
+                logger.debug('[storage] DB returned:', JSON.stringify(rows))
                 return rows
             }
         })
