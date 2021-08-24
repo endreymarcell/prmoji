@@ -24,7 +24,7 @@ express()
     .post('/event/github', handleGithubEvent)
     .post('/event/slack', handleSlackEvent)
     .post('/cleanup/', handleCleanupRequest)
-    .listen(PORT, () => console.log(`Listening on ${PORT}`))
+    .listen(PORT, () => logger.info('[startup] server is listening on port', PORT))
 
 function healthcheck(req, res) {
     res.send('OK')
