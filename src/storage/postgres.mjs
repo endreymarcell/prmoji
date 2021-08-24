@@ -1,18 +1,29 @@
-import Postgres from 'pg'
+import Client from 'pg-native'
 import * as logger from '../utils/logger.mjs'
 import {getDateStringForDeletion} from '../utils/helpers.mjs'
 
 export class PostgresStorage {
     constructor(connectionString) {
-        this.client = new Postgres.Client({connectionString, ssl: true})
-        this.client.connect()
+        this.client = new Client()
+        this.client.connect(connectionString, (error) => {
+            if (error) {
+                logger.error('[storage] Error while connecting to the database:', error)
+            } else {
+                logger.info('[storage] Successfully connected to the database')
+            }
+        })
     }
 
     execute(query) {
-        logger.debug('[psql]', query)
-        return this.client.query(query).catch((error) => {
-            console.log('[storage] Just in case my logger is borken: error, error!', error)
-            logger.error('[psql]', error)
+        logger.debug('[storage] executing query:', query)
+        return this.client.query(query, (error, rows) => {
+            if (error) {
+                console.log('[storage] Just in case my logger is borken: error, error!', error)
+                logger.error('[storage]', error)
+            } else {
+                logger.debug('[storage] DB returned:', rows)
+                return rows
+            }
         })
     }
     store(prUrl, messageChannel, messageTimestamp) {
