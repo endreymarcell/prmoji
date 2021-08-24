@@ -40,7 +40,7 @@ function rollbarLog(level, message) {
     }
 }
 
-export const error = (...messageParts) => log(Levels.ERROR, ...messageParts)
-export const info = (...messageParts) => log(Levels.INFO, ...messageParts)
-export const debug = (...messageParts) => log(Levels.DEBUG, ...messageParts)
-export const silly = (...messageParts) => log(Levels.SILLY, ...messageParts)
+export const error = (...messageParts) => log(Levels.ERROR, '(error)', ...messageParts)
+export const info = (...messageParts) => log(Levels.INFO, '(info)', ...messageParts)
+export const debug = (...messageParts) => log(Levels.DEBUG, '(debug)', ...messageParts)
+export const silly = (...messageParts) => log(Levels.SILLY, '(silly)', ...messageParts)

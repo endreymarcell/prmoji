@@ -14,7 +14,7 @@ export class PrmojiApp {
     async handleMessage(message) {
         logger.info('[app] Received Slack message', message.text ? message.text.substr(0, 8) : '(no message text)')
         if (!message.text || !message.channel || !message.timestamp) {
-            logger.debug('Missing field(s), discarding message.')
+            logger.debug('[app] Missing field(s), discarding message.')
             return
         }
 
@@ -59,7 +59,7 @@ export class PrmojiApp {
             }
 
             if (event.action === Actions.MERGED || event.action === Actions.CLOSED) {
-                logger.debug('Deleting', event.url)
+                logger.debug('[app] Deleting', event.url)
                 await this.storage.deleteByPrUrl(event.url)
             }
         }

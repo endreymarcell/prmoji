@@ -9,14 +9,14 @@ export class PostgresStorage {
     }
 
     execute(query) {
-        logger.debug(query)
+        logger.debug('[psql]', query)
         return this.client.query(query).catch((error) => {
             console.log('[storage] Just in case my logger is borken: error, error!', error)
-            logger.error(error)
+            logger.error('[psql]', error)
         })
     }
     store(prUrl, messageChannel, messageTimestamp) {
-        logger.debug('[storage] storing', {prUrl, messageChannel, messageTimestamp})
+        logger.debug('[storage] storing', JSON.stringify({prUrl, messageChannel, messageTimestamp}))
         return this.execute(
             `INSERT INTO pr_messages VALUES (default, default, '${prUrl}', '${messageChannel}', '${messageTimestamp}')`,
         )

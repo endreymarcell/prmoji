@@ -105,7 +105,7 @@ export function shouldAddEmoji(event) {
 }
 
 export function shouldNotify(event) {
-    logger.debug('shouldNotify examining event:', JSON.stringify(event, null, 2))
+    logger.silly('shouldNotify examining event:', JSON.stringify(event, null, 2))
 
     const watchedRepositories = ['prezi/frontend-packages', 'endreymarcell/prmoji-testing']
     const watchedLabels = ['air']
@@ -115,7 +115,7 @@ export function shouldNotify(event) {
     const hasWatchedLabel = event.labels.some((label) => watchedLabels.includes(label))
 
     const shouldNotify = isMerged && isWatchedRepository && hasWatchedLabel
-    logger.debug(
+    logger.silly(
         'Notification criteria:',
         JSON.stringify({isMerged, isWatchedRepository, hasWatchedLabel, shouldNotify}, null, 2),
     )
