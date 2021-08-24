@@ -16,13 +16,17 @@ export class PostgresStorage {
 
     execute(query) {
         logger.debug('[storage] executing query:', query)
-        return this.client.query(query, (error, rows) => {
-            if (error) {
-                logger.error('[storage]', error)
-            } else {
-                logger.debug('[storage] DB returned:', JSON.stringify(rows))
-                return rows
-            }
+        return new Promise((resolve, reject) => {
+            this.client.query(query, (error, rows) => {
+                if (error) {
+                    logger.error('[storage]', error)
+                    reject()
+                } else {
+                    const result = JSON.stringify(rows)
+                    logger.debug('[storage] DB returned:', result.length > 0 ? result : 'none')
+                    resolve(rows)
+                }
+            })
         })
     }
     store(prUrl, messageChannel, messageTimestamp) {
