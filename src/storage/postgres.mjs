@@ -38,7 +38,11 @@ export class PostgresStorage {
 
     get(prUrl) {
         logger.debug('[storage] getting', prUrl)
-        return this.execute(`SELECT message_channel, message_timestamp FROM pr_messages WHERE pr_url = '${prUrl}'`)
+        const result = this.execute(
+            `SELECT message_channel, message_timestamp FROM pr_messages WHERE pr_url = '${prUrl}'`,
+        )
+        logger.debug('[storage] so far so good')
+        return result
     }
 
     deleteByPrUrl(prUrl) {
