@@ -43,7 +43,7 @@ export class PrmojiApp {
 
         logger.debug('[app] Looking up PR in the storage')
         const result = await this.storage.get(event.url)
-        logger.debug('[app] Got', result.length, 'matching items')
+        logger.debug('[app] Got', result.length, 'matching item' + (result.length === 1 ? '' : 's'))
 
         if (result.length > 0) {
             const emoji = EmojiMap[event.action]
