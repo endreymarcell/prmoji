@@ -43,16 +43,16 @@ export class PrmojiApp {
 
         logger.debug('[app] Looking up PR in the storage')
         const result = await this.storage.get(event.url)
-        logger.debug('[app] Got', result.rows.length, 'matching rows')
+        logger.debug('[app] Got', result.length, 'matching items')
 
-        if (result.rows.length > 0) {
+        if (result.length > 0) {
             const emoji = EmojiMap[event.action]
             logger.debug('[app] Selected emoji:', emoji)
 
-            for (const row of result.rows) {
+            for (const item of result) {
                 if (shouldAddEmoji(event)) {
                     logger.info('[app] Adding emoji', emoji)
-                    await this.slackClient.addEmoji(emoji, row.message_channel, row.message_timestamp)
+                    await this.slackClient.addEmoji(emoji, item.message_channel, item.message_timestamp)
                 } else {
                     logger.info('[app] Should not add emoji for this event.')
                 }

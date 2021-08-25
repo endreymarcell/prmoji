@@ -41,7 +41,7 @@ export class PostgresStorage {
         const result = await this.execute(
             `SELECT message_channel, message_timestamp FROM pr_messages WHERE pr_url = '${prUrl}'`,
         )
-        logger.debug('[storage] so far so good')
+        logger.debug('[storage] result looks like this:', result)
         return result
     }
 
