@@ -17,7 +17,7 @@ export class PostgresStorage {
     execute(query) {
         logger.debug('[storage] executing query:', query)
         return new Promise((resolve, reject) => {
-            this.client.query(query, (error, rows) => {
+            return this.client.query(query, (error, rows) => {
                 if (error) {
                     logger.error('[storage]', error)
                     reject()
