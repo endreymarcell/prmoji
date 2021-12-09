@@ -23,6 +23,10 @@ export function getPrCommenter(requestBody) {
     return requestBody.comment && requestBody.comment.user && requestBody.comment.user.login
 }
 
+export function getPrCommentBody(requestBody) {
+    return requestBody.comment && requestBody.comment.body
+}
+
 export function getPrRepoName(requestBody) {
     return requestBody.repository && requestBody.repository.name
 }
@@ -101,7 +105,8 @@ export function getLogLevelFromArgs(argv) {
 
 export function shouldAddEmoji(event) {
     const isCommentFromJenkins = event.action === Actions.COMMENTED && IGNORED_COMMENTERS.includes(event.commenter)
-    return !isCommentFromJenkins
+    const isCommentForJenkins = event.action === Actions.COMMENTED && event.comment === 'retest this please'
+    return !isCommentFromJenkins && !isCommentForJenkins
 }
 
 export function shouldNotify(event) {
