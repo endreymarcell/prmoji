@@ -2,6 +2,8 @@
 
 A tiny web service that puts emojis on your Slack message when your PR is approved, commented etc.
 
+![prmoji-approved-and-merged-emoji](./prmoji.png)
+
 ## How does it work?
 
 If you invite the `prmoji` bot to your channel, it'll start listening to your messages. Whenever someone posts a GitHub pull request URL, `prmoji` saves that into the database (URL, message channel, message timestamp).
