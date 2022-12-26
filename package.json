@@ -5,9 +5,9 @@
     "private": true,
     "type": "module",
     "engines": {
-        "node": "12.x"
+        "node": "18.x"
     },
-    "main": "src/index.js",
+    "main": "src/index.mjs",
     "scripts": {
         "start": "node --experimental-modules src/index.mjs",
         "test": "echo 'I will fix the tests too, I promise'"
@@ -16,8 +16,8 @@
         "@babel/runtime": "^7.7.7",
         "@slack/events-api": "^2.3.0",
         "@slack/web-api": "^5.6.0",
-        "pg": "^7.16.1",
-        "pg-native": "^3.0.0",
+        "pg": "^8.8.0",
+        "pg-native": "^3.0.1",
         "rollbar": "^2.14.4"
     },
     "devDependencies": {
