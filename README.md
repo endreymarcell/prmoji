@@ -5,7 +5,8 @@ approved, commented etc.
 
 ![prmoji-approved-and-merged-emoji](./prmoji.png)
 
-This is a [Deno](https://deno.land) port of [Marcell Endrey's Node.js implementation](https://github.com/endreymarcell/prmoji).
+This is a [Deno](https://deno.land) port of
+[Marcell Endrey's Node.js implementation](https://github.com/endreymarcell/prmoji).
 
 ## How does it work?
 
@@ -15,10 +16,12 @@ into the database (URL, message channel, message timestamp).
 
 ## Setup
 
-It requires the latest [Deno CLI](https://deno.land/manual/getting_started/installation).
+It requires the latest
+[Deno CLI](https://deno.land/manual/getting_started/installation).
 
-* `deno task start` - start service
-* `deno task dev` - start service and listen to source file changes and auto-restart it
+- `deno task start` - start service
+- `deno task dev` - start service and listen to source file changes and
+  auto-restart it
 
 ### Database
 
@@ -40,13 +43,14 @@ Indexes:
 ### Service
 
 Run: `deno task start` Optionally you can specify the log level with
-`deno task start -- --loglevel=X` where X is one of`: silent, error, info, debug,
-silly. (Default is info.)
+`deno task start -- --loglevel=X` where X is one of`: silent, error, info,
+debug, silly. (Default is info.)
 
 You'll have to expose the following env vars: `SLACK_TOKEN` - for communicating
 with Slack `DATABASE_URL` - the PostgreSQL DB URL including credentials
 
-Optionally the port can be overwritten with the `PORT` env var, defult is `5000`.
+Optionally the port can be overwritten with the `PORT` env var, defult is
+`5000`.
 
 ### Slack
 

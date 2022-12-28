@@ -154,11 +154,11 @@ export function shouldNotify(event: GithubEvent) {
   log("shouldNotify examining event:", JSON.stringify(event, null, 2));
 
   const isMerged = event.action === Actions.MERGED;
-  const isWatchedRepository = event.fullName &&
-    WATCHED_REPOSITORIES.includes(event.fullName);
-  const hasWatchedLabel = event.labels.some((label) =>
-    WATCHED_LABELS.includes(label)
-  );
+  const isWatchedRepository = WATCHED_REPOSITORIES.length === 0 ||
+    event.fullName &&
+      WATCHED_REPOSITORIES.includes(event.fullName);
+  const hasWatchedLabel = WATCHED_LABELS.length === 0 ||
+    event.labels.some((label) => WATCHED_LABELS.includes(label));
 
   const shouldNotify = isMerged && isWatchedRepository && hasWatchedLabel;
   log(

@@ -23,5 +23,9 @@ export const IGNORED_COMMENTERS = [
   "sonarcloud",
 ];
 
-export const WATCHED_REPOSITORIES: string[] = []; // repositories to watch for notifications
-export const WATCHED_LABELS: string[] = []; // labels to watch for notifications
+// repositories to watch for notifications
+// empty array means watching all repositories
+export const WATCHED_REPOSITORIES: string[] = [];
+// labels to watch for notifications
+// empty array means watching all labels
+export const WATCHED_LABELS: string[] = [];
