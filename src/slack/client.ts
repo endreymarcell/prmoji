@@ -2,6 +2,7 @@ import { WebClient } from "https://deno.land/x/slack_web_api@6.7.2/mod.js";
 import * as logger from "../utils/logger.ts";
 
 export class SlackClient {
+  // deno-lint-ignore no-explicit-any
   client: any;
 
   constructor(token: string) {

@@ -1,6 +1,14 @@
 let _level: Levels | undefined;
 
-type MessagePart = string | number | boolean | undefined | null | object;
+type MessagePart =
+  | string
+  | number
+  | boolean
+  | undefined
+  | null
+  | Record<string, unknown>
+  | RegExpMatchArray
+  | [];
 
 export enum Levels {
   SILENT = "silent",
